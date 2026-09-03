@@ -1163,6 +1163,13 @@ button,input,textarea,select{
     .section{
         padding:75px 0
     }
+    .cards.three{
+        display:flex;
+        flex-direction: column;
+    }
+    .cards article{
+        border-right: none;
+    }
     .nav-inner{
         height:68px}
         .nav-links{
