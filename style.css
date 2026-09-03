@@ -1067,6 +1067,13 @@ button,input,textarea,select{
 }
 /* responsiveness for phone and tablets screen sizes */
 @media(max-width:1135px){
+        .cards.three{
+        display:flex;
+        flex-direction: column;
+    }
+    .cards article{
+        border-right: 0;
+    }
     .nav-links{
         display:none;
         position:absolute;
@@ -1168,7 +1175,7 @@ button,input,textarea,select{
         flex-direction: column;
     }
     .cards article{
-        border-right: none;
+        border-right: 0;
     }
     .nav-inner{
         height:68px}
