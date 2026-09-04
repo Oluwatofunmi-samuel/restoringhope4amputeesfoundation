@@ -412,6 +412,8 @@ button,input,textarea,select{
 }
 
 .founder-video iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: none;
@@ -457,64 +459,20 @@ button,input,textarea,select{
 
 .video-label {
   position: absolute;
-
   top: 25px;
   left: 25px;
-
+  z-index: 2;
   font-size: 11px;
   font-weight: 700;
-
-  letter-spacing: 2px;
-
-  color: #fff;
-
   padding: 8px 14px;
-
+  letter-spacing: 2px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 8px 14px;
   border: 1px solid #0c234d;
-
   border-radius: 30px;
-
-  backdrop-filter: blur(8px);
+  pointer-events: none;
 }
-
-
-/* Play Button */
-
-.play-button {
-  width: 78px;
-  height: 78px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: #ffffff;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.play-button:hover {
-  transform: scale(1.08);
-
-  box-shadow:
-    0 10px 35px rgba(0,0,0,0.25);
-}
-
-.play-icon {
-  font-size: 23px;
-
-  margin-left: 4px;
-
-  color: #111;
-}
-
 
 /* Quote */
 
@@ -708,7 +666,6 @@ button,input,textarea,select{
 ========================= */
 
 @media (max-width: 900px) {
-
   .founder-story {
     padding: 80px 6%;
   }
@@ -735,21 +692,16 @@ button,input,textarea,select{
   .founder-video {
     border-radius: 18px;
 
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
   }
 
   .video-label {
     top: 18px;
     left: 18px;
-
+    padding: 7px 11px;
     font-size: 9px;
   }
-
-  .play-button {
-    width: 65px;
-    height: 65px;
-  }
-
+  
   .video-quote {
     font-size: 17px;
   }
