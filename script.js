@@ -30,90 +30,133 @@
     $$('.reveal').forEach(el=>observer.observe(el));
 })();
 
-
 /* =========================
-   FOUNDER VIDEO
+   FOUNDER YOUTUBE VIDEO
 ========================= */
 
-const founderVideo = document.getElementById("founderVideo");
+let founderPlayer;
+
 const playButton = document.getElementById("playButton");
 const watchStory = document.getElementById("watchStory");
 const videoOverlay = document.getElementById("videoOverlay");
 const pauseButton = document.getElementById("pauseButton");
 
 
-function playFounderVideo() {
+/* Create YouTube player */
 
-  founderVideo.play();
+function onYouTubeIframeAPIReady() {
 
-  videoOverlay.classList.add("hidden");
+    founderPlayer = new YT.Player("founderVideo", {
 
-  watchStory.innerHTML = `
-    <span>❚❚</span>
-    Pause Her Story
-  `;
+        events: {
+            onStateChange: onFounderVideoStateChange
+        }
+
+    });
+
 }
 
 
+/* Play founder video */
+
+function playFounderVideo() {
+
+    if (!founderPlayer) return;
+
+    founderPlayer.playVideo();
+
+    videoOverlay.classList.add("hidden");
+
+    watchStory.innerHTML = `
+        <span>❚❚</span>
+        Pause Her Story
+    `;
+}
+
+
+/* Pause founder video */
+
 function pauseFounderVideo() {
 
-  founderVideo.pause();
+    if (!founderPlayer) return;
 
-  videoOverlay.classList.remove("hidden");
+    founderPlayer.pauseVideo();
 
-  watchStory.innerHTML = `
-    <span>▶</span>
-    Watch Her Story
-  `;
+    videoOverlay.classList.remove("hidden");
+
+    watchStory.innerHTML = `
+        <span>▶</span>
+        Watch Her Story
+    `;
 }
 
 
 /* Main play button */
 
-playButton.addEventListener("click", function () {
+if (playButton) {
 
-  playFounderVideo();
+    playButton.addEventListener("click", function () {
 
-});
+        playFounderVideo();
+
+    });
+
+}
 
 
 /* Watch/Pause button */
 
-watchStory.addEventListener("click", function () {
+if (watchStory) {
 
-  if (founderVideo.paused) {
+    watchStory.addEventListener("click", function () {
 
-    playFounderVideo();
+        if (!founderPlayer) return;
 
-  } else {
+        const state = founderPlayer.getPlayerState();
 
-    pauseFounderVideo();
+        if (
+            state === YT.PlayerState.PLAYING
+        ) {
 
-  }
+            pauseFounderVideo();
 
-});
+        } else {
+
+            playFounderVideo();
+
+        }
+
+    });
+
+}
 
 
 /* Small pause button */
 
-pauseButton.addEventListener("click", function () {
+if (pauseButton) {
 
-  pauseFounderVideo();
+    pauseButton.addEventListener("click", function () {
 
-});
+        pauseFounderVideo();
 
+    });
 
-/* When video finishes */
-
-founderVideo.addEventListener("ended", function () {
-
-  videoOverlay.classList.remove("hidden");
-
-  watchStory.innerHTML = `
-    <span>▶</span>
-    Watch Her Story
-  `;
-
-});
+}
 
 
+/* Detect when YouTube video finishes */
+
+function onFounderVideoStateChange(event) {
+
+    if (event.data === YT.PlayerState.ENDED) {
+
+        videoOverlay.classList.remove("hidden");
+
+        watchStory.innerHTML = `
+            <span>▶</span>
+            Watch Her Story
+        `;
+
+    }
+
+}

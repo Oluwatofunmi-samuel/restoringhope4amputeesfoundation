@@ -411,12 +411,10 @@ button,input,textarea,select{
     0 25px 60px rgba(0, 0, 0, 0.15);
 }
 
-.founder-video video {
+.founder-video iframe {
   width: 100%;
   height: 100%;
-
-  object-fit: cover;
-
+  border: none;
   display: block;
 }
 
@@ -1067,13 +1065,6 @@ button,input,textarea,select{
 }
 /* responsiveness for phone and tablets screen sizes */
 @media(max-width:1135px){
-        .cards.three{
-        display:flex;
-        flex-direction: column;
-    }
-    .cards article{
-        border-right: 0;
-    }
     .nav-links{
         display:none;
         position:absolute;
@@ -1171,11 +1162,11 @@ button,input,textarea,select{
         padding:75px 0
     }
     .cards.three{
-        display:flex;
+        display: flex;
         flex-direction: column;
     }
     .cards article{
-        border-right: 0;
+    border-right:0;
     }
     .nav-inner{
         height:68px}
