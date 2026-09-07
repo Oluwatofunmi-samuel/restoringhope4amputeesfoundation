@@ -447,6 +447,7 @@ button,input,textarea,select{
     );
 
   transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
 .video-overlay.hidden {
@@ -487,43 +488,6 @@ button,input,textarea,select{
 
   font-weight: 500;
 }
-
-
-/* =========================
-   VIDEO CONTROLS
-========================= */
-
-.video-controls {
-  position: absolute;
-
-  bottom: 20px;
-  right: 20px;
-
-  opacity: 0;
-
-  transition: opacity 0.3s ease;
-}
-
-.founder-video:hover .video-controls {
-  opacity: 1;
-}
-
-.video-controls button {
-  width: 42px;
-  height: 42px;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background: rgba(0,0,0,0.6);
-
-  color: #fff;
-
-  cursor: pointer;
-}
-
-
 /* =========================
    CONTENT
 ========================= */
@@ -701,7 +665,7 @@ button,input,textarea,select{
     padding: 7px 11px;
     font-size: 9px;
   }
-  
+
   .video-quote {
     font-size: 17px;
   }
