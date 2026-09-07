@@ -32,24 +32,25 @@
 
 let founderPlayer;
 
-function onYouTubeIframeAPIReady() {
-    founderPlayer = new YT.Player('founderVideo', {
-        events: {
-            onStateChange: handleVideoState
-        }
-    });
-}
+    function onYouTubeIframeAPIReady() {
+        founderPlayer = new YT.Player('founderVideo', {
+            events: {
+                onStateChange: function(event) {
 
-function handleVideoState(event) {
-    const overlay = document.getElementById('videoOverlay');
+                    const overlay = document.getElementById('videoOverlay');
 
-    if (!overlay) return;
+                    if (!overlay) return;
 
-    if (event.data === YT.PlayerState.PLAYING) {
-        overlay.classList.add('hidden');
+                    // Video started playing
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        overlay.classList.add('hidden');
+                    }
+
+                    // Video paused
+                    else if (event.data === YT.PlayerState.PAUSED) {
+                        overlay.classList.remove('hidden');
+                    }
+                }
+            }
+        });
     }
-
-    if (event.data === YT.PlayerState.PAUSED) {
-        overlay.classList.remove('hidden');
-    }
-}
