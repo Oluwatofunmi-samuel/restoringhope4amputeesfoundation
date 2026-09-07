@@ -30,29 +30,26 @@
     $$('.reveal').forEach(el=>observer.observe(el));
 })();
 
-    let founderPlayer;
+let founderPlayer;
 
-    function onYouTubeIframeAPIReady() {
-        founderPlayer = new YT.Player('founderVideo', {
-            events: {
-                'onStateChange': onFounderVideoStateChange
-            }
-        });
+function onYouTubeIframeAPIReady() {
+    founderPlayer = new YT.Player('founderVideo', {
+        events: {
+            onStateChange: handleVideoState
+        }
+    });
+}
+
+function handleVideoState(event) {
+    const overlay = document.getElementById('videoOverlay');
+
+    if (!overlay) return;
+
+    if (event.data === YT.PlayerState.PLAYING) {
+        overlay.classList.add('hidden');
     }
 
-    function onFounderVideoStateChange(event) {
-        const overlay = document.getElementById('videoOverlay');
-
-        // Video is playing
-        if (event.data === YT.PlayerState.PLAYING) {
-            overlay.classList.add('hidden');
-        }
-
-        // Video is paused or ended
-        if (
-            event.data === YT.PlayerState.PAUSED ||
-            event.data === YT.PlayerState.ENDED
-        ) {
-            overlay.classList.remove('hidden');
-        }
+    if (event.data === YT.PlayerState.PAUSED) {
+        overlay.classList.remove('hidden');
     }
+}
