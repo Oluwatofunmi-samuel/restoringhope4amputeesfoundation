@@ -30,27 +30,29 @@
     $$('.reveal').forEach(el=>observer.observe(el));
 })();
 
+// =========================
+// FOUNDER VIDEO
+// =========================
+
 let founderPlayer;
 
-    function onYouTubeIframeAPIReady() {
-        founderPlayer = new YT.Player('founderVideo', {
-            events: {
-                onStateChange: function(event) {
+function onYouTubeIframeAPIReady() {
+    founderPlayer = new YT.Player('founderVideo', {
+        events: {
+            onStateChange: function(event) {
 
-                    const overlay = document.getElementById('videoOverlay');
+                const overlay = document.getElementById('videoOverlay');
 
-                    if (!overlay) return;
+                if (!overlay) return;
 
-                    // Video started playing
-                    if (event.data === YT.PlayerState.PLAYING) {
-                        overlay.classList.add('hidden');
-                    }
+                if (event.data === YT.PlayerState.PLAYING) {
+                    overlay.classList.add('hidden');
+                }
 
-                    // Video paused
-                    else if (event.data === YT.PlayerState.PAUSED) {
-                        overlay.classList.remove('hidden');
-                    }
+                else if (event.data === YT.PlayerState.PAUSED) {
+                    overlay.classList.remove('hidden');
                 }
             }
-        });
-    }
+        }
+    });
+}
