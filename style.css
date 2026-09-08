@@ -424,8 +424,6 @@ button,input,textarea,select{
 /* =========================
    VIDEO OVERLAY
 ========================= */
-
-.video-overlay {
 .video-overlay {
     position: absolute;
     inset: 0;
