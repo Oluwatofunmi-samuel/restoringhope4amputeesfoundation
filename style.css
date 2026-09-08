@@ -427,6 +427,7 @@ button,input,textarea,select{
 .video-overlay {
     position: absolute;
     inset: 0;
+    z-index: 2;
 
     display: flex;
     flex-direction: column;
@@ -442,9 +443,7 @@ button,input,textarea,select{
         rgba(0, 0, 0, 0.65)
     );
 
-    transition: opacity 0.35s ease, visibility 0.35s ease;
-
-    z-index: 2;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 
     pointer-events: none;
 }
@@ -452,8 +451,7 @@ button,input,textarea,select{
 .video-overlay.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none;
-}
+    }
 
 /* Label */
 
