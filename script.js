@@ -35,42 +35,67 @@
 // =========================
 
 document.addEventListener('DOMContentLoaded', function () {
+// =========================
+// FOUNDER VIDEO OVERLAY
+// =========================
 
-    const iframe = document.getElementById('founderVideo');
+(function () {
+
     const overlay = document.getElementById('videoOverlay');
+    const iframe = document.getElementById('founderVideo');
 
-    if (!iframe || !overlay) return;
+    if (!overlay || !iframe) {
+        console.log('Founder video elements not found.');
+        return;
+    }
 
-    // Load the YouTube IFrame API
+    let player;
+
+    // Create YouTube API script
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
+
     document.head.appendChild(tag);
 
-    // This function is called by YouTube
+    // YouTube calls this when its API is ready
     window.onYouTubeIframeAPIReady = function () {
 
-        const founderPlayer = new YT.Player('founderVideo', {
+        console.log('YouTube API is ready.');
+
+        player = new YT.Player('founderVideo', {
 
             events: {
 
                 onStateChange: function (event) {
 
-                    // Video is playing
+                    console.log('YouTube state:', event.data);
+
+                    // PLAYING
                     if (event.data === YT.PlayerState.PLAYING) {
+
+                        console.log('VIDEO IS PLAYING - HIDING OVERLAY');
+
                         overlay.classList.add('hidden');
                     }
 
-                    // Video is paused
+                    // PAUSED
                     else if (event.data === YT.PlayerState.PAUSED) {
+
+                        console.log('VIDEO PAUSED');
+
                         overlay.classList.remove('hidden');
                     }
 
-                    // Video ended
+                    // ENDED
                     else if (event.data === YT.PlayerState.ENDED) {
+
+                        console.log('VIDEO ENDED');
+
                         overlay.classList.remove('hidden');
                     }
                 }
             }
         });
     };
-});
+
+})();
