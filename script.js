@@ -34,25 +34,43 @@
 // FOUNDER VIDEO
 // =========================
 
-let founderPlayer;
+document.addEventListener('DOMContentLoaded', function () {
 
-function onYouTubeIframeAPIReady() {
-    founderPlayer = new YT.Player('founderVideo', {
-        events: {
-            onStateChange: function(event) {
+    const iframe = document.getElementById('founderVideo');
+    const overlay = document.getElementById('videoOverlay');
 
-                const overlay = document.getElementById('videoOverlay');
+    if (!iframe || !overlay) return;
 
-                if (!overlay) return;
+    // Load the YouTube IFrame API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
 
-                if (event.data === YT.PlayerState.PLAYING) {
-                    overlay.classList.add('hidden');
-                }
+    // This function is called by YouTube
+    window.onYouTubeIframeAPIReady = function () {
 
-                else if (event.data === YT.PlayerState.PAUSED) {
-                    overlay.classList.remove('hidden');
+        const founderPlayer = new YT.Player('founderVideo', {
+
+            events: {
+
+                onStateChange: function (event) {
+
+                    // Video is playing
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        overlay.classList.add('hidden');
+                    }
+
+                    // Video is paused
+                    else if (event.data === YT.PlayerState.PAUSED) {
+                        overlay.classList.remove('hidden');
+                    }
+
+                    // Video ended
+                    else if (event.data === YT.PlayerState.ENDED) {
+                        overlay.classList.remove('hidden');
+                    }
                 }
             }
-        }
-    });
-}
+        });
+    };
+});
