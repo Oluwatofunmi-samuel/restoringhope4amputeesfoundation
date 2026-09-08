@@ -34,68 +34,35 @@
 // FOUNDER VIDEO
 // =========================
 
-document.addEventListener('DOMContentLoaded', function () {
-// =========================
-// FOUNDER VIDEO OVERLAY
-// =========================
+// Load YouTube IFrame Player API
+const youtubeScript = document.createElement("script");
+youtubeScript.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(youtubeScript);
 
-(function () {
+let founderPlayer;
 
-    const overlay = document.getElementById('videoOverlay');
-    const iframe = document.getElementById('founderVideo');
+function onYouTubeIframeAPIReady() {
+    founderPlayer = new YT.Player("founderVideo", {
+        events: {
+            onStateChange: function(event) {
 
-    if (!overlay || !iframe) {
-        console.log('Founder video elements not found.');
-        return;
-    }
+                // Video is playing
+                if (event.data === YT.PlayerState.PLAYING) {
+                    document
+                        .getElementById("videoOverlay")
+                        .classList.add("hidden");
+                }
 
-    let player;
-
-    // Create YouTube API script
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-
-    document.head.appendChild(tag);
-
-    // YouTube calls this when its API is ready
-    window.onYouTubeIframeAPIReady = function () {
-
-        console.log('YouTube API is ready.');
-
-        player = new YT.Player('founderVideo', {
-
-            events: {
-
-                onStateChange: function (event) {
-
-                    console.log('YouTube state:', event.data);
-
-                    // PLAYING
-                    if (event.data === YT.PlayerState.PLAYING) {
-
-                        console.log('VIDEO IS PLAYING - HIDING OVERLAY');
-
-                        overlay.classList.add('hidden');
-                    }
-
-                    // PAUSED
-                    else if (event.data === YT.PlayerState.PAUSED) {
-
-                        console.log('VIDEO PAUSED');
-
-                        overlay.classList.remove('hidden');
-                    }
-
-                    // ENDED
-                    else if (event.data === YT.PlayerState.ENDED) {
-
-                        console.log('VIDEO ENDED');
-
-                        overlay.classList.remove('hidden');
-                    }
+                // Video is paused or stopped
+                if (
+                    event.data === YT.PlayerState.PAUSED ||
+                    event.data === YT.PlayerState.ENDED
+                ) {
+                    document
+                        .getElementById("videoOverlay")
+                        .classList.remove("hidden");
                 }
             }
-        });
-    };
-
-})();
+        }
+    });
+}
