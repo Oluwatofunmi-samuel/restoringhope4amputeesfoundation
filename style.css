@@ -472,19 +472,6 @@ button,input,textarea,select{
   pointer-events: none;
 }
 
-/* Quote */
-
-.video-quote {
-  margin-top: 28px;
-
-  color: #fff;
-
-  font-size: clamp(18px, 2vw, 25px);
-
-  line-height: 1.4;
-
-  font-weight: 500;
-}
 /* =========================
    CONTENT
 ========================= */
