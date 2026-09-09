@@ -34,7 +34,6 @@
 // FOUNDER VIDEO
 // =========================
 
-// Load YouTube IFrame Player API
 const youtubeScript = document.createElement("script");
 youtubeScript.src = "https://www.youtube.com/iframe_api";
 document.head.appendChild(youtubeScript);
@@ -44,25 +43,33 @@ let founderPlayer;
 function onYouTubeIframeAPIReady() {
     founderPlayer = new YT.Player("founderVideo", {
         events: {
-            onStateChange: function(event) {
-
-                // Video is playing
-                if (event.data === YT.PlayerState.PLAYING) {
-                    document
-                        .getElementById("videoOverlay")
-                        .classList.add("hidden");
-                }
-
-                // Video is paused or stopped
-                if (
-                    event.data === YT.PlayerState.PAUSED ||
-                    event.data === YT.PlayerState.ENDED
-                ) {
-                    document
-                        .getElementById("videoOverlay")
-                        .classList.remove("hidden");
-                }
-            }
+            onReady: onFounderPlayerReady,
+            onStateChange: onFounderPlayerStateChange
         }
     });
+}
+
+function onFounderPlayerReady() {
+    const watchBtn = document.getElementById("watchStory");
+    const overlay = document.getElementById("videoOverlay");
+
+    watchBtn.addEventListener("click", () => {
+        founderPlayer.playVideo();
+        overlay.classList.add("hidden");
+    });
+}
+
+function onFounderPlayerStateChange(event) {
+    const overlay = document.getElementById("videoOverlay");
+
+    if (event.data === YT.PlayerState.PLAYING) {
+        overlay.classList.add("hidden");
+    }
+
+    if (
+        event.data === YT.PlayerState.PAUSED ||
+        event.data === YT.PlayerState.ENDED
+    ) {
+        overlay.classList.remove("hidden");
+    }
 }
