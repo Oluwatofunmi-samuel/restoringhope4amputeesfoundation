@@ -33,24 +33,11 @@
 // FOUNDER VIDEO
 // =========================
 
-const youtubeScript = document.createElement("script");
-youtubeScript.src = "https://www.youtube.com/iframe_api";
-document.head.appendChild(youtubeScript);
+const watchStoryBtn = document.getElementById("watchStory");
 
-let founderPlayer;
-
-function onYouTubeIframeAPIReady() {
-    founderPlayer = new YT.Player("founderVideo", {
-        events: {
-            onReady: onFounderPlayerReady
-        }
+watchStoryBtn.addEventListener("click", () => {
+    document.getElementById("founderVideo").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
     });
-}
-
-function onFounderPlayerReady() {
-    const watchBtn = document.getElementById("watchStory");
-
-    watchBtn.addEventListener("click", () => {
-        founderPlayer.playVideo();
-    });
-}
+});
