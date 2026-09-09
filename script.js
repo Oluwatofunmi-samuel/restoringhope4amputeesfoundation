@@ -89,6 +89,10 @@ function onFounderPlayerReady() {
     if (!watchBtn || !overlay) return;
 
     watchBtn.addEventListener("click", () => {
+        document.getElementById("founderVideo").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
         founderPlayer.playVideo();
         overlay.classList.add("hidden");
     });
