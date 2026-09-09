@@ -437,11 +437,11 @@ button,input,textarea,select{
     text-align: center;
     padding: 30px;
 
-   /* background: linear-gradient(
+    background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.25),
         rgba(0, 0, 0, 0.65)
-    ); */
+    ); 
 
     transition: opacity 0.4s ease, visibility 0.4s ease;
 
@@ -470,6 +470,20 @@ button,input,textarea,select{
   border: 1px solid #0c234d;
   border-radius: 30px;
   pointer-events: none;
+}
+
+/*quote*/
+
+.video-quote {
+  margin-top: 28px;
+
+  color: #fff;
+
+  font-size: clamp(18px, 2vw, 25px);
+
+  line-height: 1.4;
+
+  font-weight: 500;
 }
 
 /* =========================
