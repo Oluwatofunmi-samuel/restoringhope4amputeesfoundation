@@ -65,22 +65,47 @@
 // FOUNDER VIDEO
 // =========================
 
-const watchStoryBtn = document.getElementById("watchStory");
+const youtubeScript = document.createElement("script");
+youtubeScript.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(youtubeScript);
 
-if (watchStoryBtn) {
-    watchStoryBtn.addEventListener("click", () => {
-        const video = document.getElementById("founderVideo");
-        if (video) {
-            video.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+let founderPlayer;
+
+window.onYouTubeIframeAPIReady = function () {
+    const videoEl = document.getElementById("founderVideo");
+    if (!videoEl) return;
+
+    founderPlayer = new YT.Player("founderVideo", {
+        events: {
+            onReady: onFounderPlayerReady,
+            onStateChange: onFounderPlayerStateChange
         }
     });
-                                     }
-watchStoryBtn.addEventListener("click", () => {
-    document.getElementById("founderVideo").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+};
+
+function onFounderPlayerReady() {
+    const watchBtn = document.getElementById("watchStory");
+    const overlay = document.getElementById("videoOverlay");
+    if (!watchBtn || !overlay) return;
+
+    watchBtn.addEventListener("click", () => {
+        founderPlayer.playVideo();
+        overlay.classList.add("hidden");
     });
-});
+}
+
+function onFounderPlayerStateChange(event) {
+    const overlay = document.getElementById("videoOverlay");
+    if (!overlay) return;
+
+    if (event.data === YT.PlayerState.PLAYING) {
+        overlay.classList.add("hidden");
+    }
+
+    if (
+        event.data === YT.PlayerState.PAUSED ||
+        event.data === YT.PlayerState.ENDED
+    ) {
+        overlay.classList.remove("hidden");
+    }
+        }
