@@ -29,7 +29,6 @@
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')}),{threshold:.12});
     $$('.reveal').forEach(el=>observer.observe(el));
 })();
-
 // =========================
 // FOUNDER VIDEO
 // =========================
@@ -43,33 +42,15 @@ let founderPlayer;
 function onYouTubeIframeAPIReady() {
     founderPlayer = new YT.Player("founderVideo", {
         events: {
-            onReady: onFounderPlayerReady,
-            onStateChange: onFounderPlayerStateChange
+            onReady: onFounderPlayerReady
         }
     });
 }
 
 function onFounderPlayerReady() {
     const watchBtn = document.getElementById("watchStory");
-    const overlay = document.getElementById("videoOverlay");
 
     watchBtn.addEventListener("click", () => {
         founderPlayer.playVideo();
-        overlay.classList.add("hidden");
     });
-}
-
-function onFounderPlayerStateChange(event) {
-    const overlay = document.getElementById("videoOverlay");
-
-    if (event.data === YT.PlayerState.PLAYING) {
-        overlay.classList.add("hidden");
-    }
-
-    if (
-        event.data === YT.PlayerState.PAUSED ||
-        event.data === YT.PlayerState.ENDED
-    ) {
-        overlay.classList.remove("hidden");
-    }
 }
