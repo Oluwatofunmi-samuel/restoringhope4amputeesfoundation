@@ -112,4 +112,100 @@ function onFounderPlayerStateChange(event) {
     ) {
         overlay.classList.remove("hidden");
     }
+}
+
+// =========================
+// BENEFICIARY STORY MODAL
+// =========================
+
+const storyModal = document.getElementById("storyModal");
+const storyModalClose = document.getElementById("storyModalClose");
+
+const storyLinks = document.querySelectorAll(".read-story");
+const fullStories = document.querySelectorAll(".full-story");
+
+
+// =========================
+// OPEN STORY
+// =========================
+
+storyLinks.forEach(link => {
+
+    link.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        // Which story did the user click?
+        const storyId = this.getAttribute("data-story");
+
+
+        // Hide every story
+        fullStories.forEach(story => {
+            story.classList.remove("active");
+        });
+
+
+        // Show ONLY the selected story
+        const selectedStory = document.getElementById(storyId);
+
+        if (selectedStory) {
+            selectedStory.classList.add("active");
         }
+
+
+        // Open popup
+        storyModal.classList.add("active");
+
+
+        // Stop main page from scrolling
+        document.body.style.overflow = "hidden";
+
+    });
+
+});
+
+
+// =========================
+// CLOSE STORY
+// =========================
+
+function closeStoryModal() {
+
+    storyModal.classList.remove("active");
+
+    // Give scrolling back to the main page
+    document.body.style.overflow = "";
+
+}
+
+
+// Close with X button
+
+storyModalClose.addEventListener("click", closeStoryModal);
+
+
+// =========================
+// CLOSE BY CLICKING OUTSIDE
+// =========================
+
+storyModal.addEventListener("click", function (event) {
+
+    if (event.target === storyModal) {
+        closeStoryModal();
+    }
+
+});
+
+
+// =========================
+// CLOSE WITH ESCAPE KEY
+// =========================
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+        closeStoryModal();
+    }
+
+});
+
